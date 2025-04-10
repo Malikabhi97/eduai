@@ -1,0 +1,52 @@
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function EduAI() {
+  const [topic, setTopic] = useState("");
+  const [result, setResult] = useState(null);
+
+  const handleSearch = async () => {
+    if (!topic) return;
+
+    // Placeholder response (simulate AI processing)
+    const explanation = 'Heres a short explanation of' ${topic}:\n${topic} 'is an important concept that involves ...';
+    const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Replace with actual video from AI tool
+
+    setResult({ explanation, videoUrl });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start p-6">
+      <h1 className="text-4xl font-bold text-center mb-4">EduAI</h1>
+      <p className="text-center text-lg mb-6">Learn Anything in Seconds with AI-Generated Videos</p>
+      <div className="w-full max-w-xl flex gap-2 mb-8">
+        <Input
+          placeholder="Enter a topic (e.g., Photosynthesis)"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+        <Button onClick={handleSearch}>Search</Button>
+      </div>
+
+      {result && (
+        <Card className="w-full max-w-2xl bg-white shadow-xl">
+          <CardContent className="p-4">
+            <h2 className="text-2xl font-semibold mb-2">AI Explanation</h2>
+            <p className="mb-4 whitespace-pre-line">{result.explanation}</p>
+            <div className="aspect-video">
+              <iframe
+                className="w-full h-full rounded-xl"
+                src={result.videoUrl}
+                title="AI Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
